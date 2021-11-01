@@ -1,14 +1,18 @@
 const fs = require('fs')
 const path = require('path');
-const minimist = require('minimist');
 //research into which parts of this package you need to get this complete
 const csv = require('fast-csv');
-
+const minimist = require('minimist');
 
 const args = minimist(process.argv.slice(2))
+//and also export them so the index.js file can use these values.
 let input = args['input']
 let output = args['output']
+
+
+
 const inputFile = require('path').join(getDir() + input);
+
 //dynamically get the paths of the above files.
 function getDir() {
     if (process.pkg) {
