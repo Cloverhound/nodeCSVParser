@@ -34,24 +34,24 @@ function getDir() {
     const stream = fs.createReadStream(inputFile)
         .pipe(parse)
         .on('data', (d) => {
-            let arrayOfKeys = ["CD0", "CD1", "CD2", "CD3", "CD4", "CD5","CD6","CD7", "DD1", "DD2", "DD3", "DD4", "DD5", "DD6", "DD7"];
+            // let val = d.join(',')
+            let arrOfKeys = ["CD1", "CD2", "CD3", "CD4", "CD5", "CD6","CD7", "DD1", "DD2", "DD3", "DD4", "DD5", "DD6", "DD7"]
             let val;
             for(let i = 0; i < d.length; i++){
-                val = d[i];
-                if(arrayOfKeys.indexOf(val.substring(0,3)) !== -1){
-                if(!datas[val]){
-                    datas[val] = [];
-                    datas[val].push(d);
+                val = d[i]
+                console.log(val.substring(0,3))
+                if(arrOfKeys.indexOf(val.substring(0,3)) > 0){
+                if(!datas[val[i]]){
+                    datas[val[i]] = [];
+                    datas[val[i]].push(d);
                 } else {
-                    datas[val].push(d);
+                    datas[val[i]].push(d)
                 }
             } 
         }
         }).on('end', () =>{
             Object.keys(datas).forEach(quantity =>{
-                // console.log('this is quantity', quantity)
                 const outputFile = require('path').join(getDir() + `${output}/output${quantity.trim()}.csv`);
-                // console.log('this is our file name', outputFile)
                 csv.write(datas[quantity])
                 .pipe(fs.createWriteStream(outputFile));
             })

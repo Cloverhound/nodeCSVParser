@@ -34,16 +34,23 @@ function getDir() {
     const stream = fs.createReadStream(inputFile)
         .pipe(parse)
         .on('data', (d) => {
-            let arrayOfKeys = ["CD0", "CD1", "CD2", "CD3", "CD4", "CD5","CD6","CD7", "DD1", "DD2", "DD3", "DD4", "DD5", "DD6", "DD7"];
+            let arrayOfKeys = ["CD0", "CD1", "CD2", "CD3", "CD4", "CD5","CD6","CD7", "DD1", "DD2", "DD3", "DD4", "DD5", "DD6", "DD7"]
+            // This .join is giving me each row
+            // let val = d.join(',')
+            // console.log('this is our value!! ',d)
             let val;
             for(let i = 0; i < d.length; i++){
-                val = d[i];
+                // Checking if this is a number instead compare it against the array
+                val = d[i]
+            //  console.log('this is our d[i]', val.substring(0,3))
+            // console.log('here is if we found the val!',arrayOfKeys.indexOf(d[i]) !== -1 )
                 if(arrayOfKeys.indexOf(val.substring(0,3)) !== -1){
-                if(!datas[val]){
-                    datas[val] = [];
-                    datas[val].push(d);
+                    // console.log('found a number we care about!')
+                if(!datas[d[i]]){
+                    datas[d[i]] = [];
+                    datas[d[i]].push(d);
                 } else {
-                    datas[val].push(d);
+                    datas[d[i]].push(d)
                 }
             } 
         }
@@ -51,7 +58,7 @@ function getDir() {
             Object.keys(datas).forEach(quantity =>{
                 // console.log('this is quantity', quantity)
                 const outputFile = require('path').join(getDir() + `${output}/output${quantity.trim()}.csv`);
-                // console.log('this is our file name', outputFile)
+                console.log('this is our file name', outputFile)
                 csv.write(datas[quantity])
                 .pipe(fs.createWriteStream(outputFile));
             })
