@@ -1,6 +1,7 @@
 # nodeCSVParser
 
-to run
-```
-npm start --  --input=/sample-data/input.csv --output=/sample-data/  
-```
+## Running
+
+1. npm install
+2. Edit `config.json` with your data
+3. Run with `npm start`
