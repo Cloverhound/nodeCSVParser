@@ -1,0 +1,5 @@
+{
+    "serverAddress": "https://172.16.54.162",
+    "serverPath": "/unifiedconfig/config/campaign",
+    "outputFolderPath": "/Users/danhuang/Documents/ParsedCSV"
+}
